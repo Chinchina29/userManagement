@@ -59,6 +59,7 @@ app.use('/admin', adminSession, adminRoute);
 
 const PORT=process.env.PORT;
 
+console.log("helo")
 
 app.listen(PORT, () => {
   console.log(`http://localhost:${PORT}`);
