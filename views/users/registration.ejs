@@ -1,0 +1,131 @@
+
+<link rel="stylesheet" href="/style.css">
+
+<section class="container">
+  <div class="login-container">
+    <div class="circle circle-one"></div>
+
+    <div class="form-container">
+      <h1 class="opacity">REGISTER</h1>
+
+      <% if (typeof message !== 'undefined') { %>
+        <h4 class="opacity" style="color: green;"><%= message %></h4>
+      <% } %>
+
+      <form action="/register" method="post" id="registerForm">
+        <input type="text" name="name" placeholder="NAME" id="name" />
+        <input type="email" name="email" placeholder="EMAIL" id="regEmail" />
+        <div class="password-container">
+          <input type="password" name="password" placeholder="PASSWORD" id="regPassword" />
+          <button type="button" class="eye-button" onclick="togglePassword('regPassword', this)">
+            👁️
+          </button>
+        </div>
+        <div class="password-container">
+          <input type="password" name="confirm_password" placeholder="CONFIRM_PASSWORD" id="confirmPassword" />
+          <button type="button" class="eye-button" onclick="togglePassword('confirmPassword', this)">
+            👁️
+          </button>
+        </div>
+        <button class="opacity" type="submit">REGISTER</button>
+      </form>
+
+      <div class="register-forget opacity">
+        <a href="/login">ALREADY HAVE AN ACCOUNT?</a>
+      </div>
+    </div>
+
+    <div class="circle circle-two"></div>
+  </div>
+  <div class="theme-btn-container"></div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function togglePassword(inputId, button) {
+  const input = document.getElementById(inputId);
+  if (input.type === 'password') {
+    input.type = 'text';
+    button.innerHTML = '🙈';
+  } else {
+    input.type = 'password';
+    button.innerHTML = '👁️';
+  }
+}
+
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const password = document.getElementById('regPassword').value.trim();
+  const confirmPassword = document.getElementById('confirmPassword').value.trim();
+  
+  if (!name || !email || !password || !confirmPassword) {
+    e.preventDefault();
+    Swal.fire({
+      icon: 'error',
+      title: 'Validation Error',
+      text: 'Please fill in all fields',
+      confirmButtonColor: '#d33'
+    });
+    return false;
+  }
+  const nameRegex = /^[A-Za-z\s]+$/;
+
+if (!name) {
+  e.preventDefault();
+  Swal.fire({
+    icon: 'error',
+    title: 'Invalid Name',
+    text: 'Name cannot be empty or spaces only',
+    confirmButtonColor: '#d33'
+  });
+  return false;
+}
+
+if (!nameRegex.test(name)) {
+  e.preventDefault();
+  Swal.fire({
+    icon: 'error',
+    title: 'Invalid Name',
+    text: 'Name should contain only letters and spaces',
+    confirmButtonColor: '#d33'
+  });
+  return false;
+}
+
+  
+  if (!email.includes('@') || !email.includes('.')) {
+    e.preventDefault();
+    Swal.fire({
+      icon: 'error',
+      title: 'Invalid Email',
+      text: 'Please enter a valid email address',
+      confirmButtonColor: '#d33'
+    });
+    return false;
+  }
+  
+  if (password !== confirmPassword) {
+    e.preventDefault();
+    Swal.fire({
+      icon: 'error',
+      title: 'Password Mismatch',
+      text: 'Passwords do not match',
+      confirmButtonColor: '#d33'
+    });
+    return false;
+  }
+  
+  if (password.length < 6) {
+    e.preventDefault();
+    Swal.fire({
+      icon: 'error',
+      title: 'Weak Password',
+      text: 'Password must be at least 6 characters long',
+      confirmButtonColor: '#d33'
+    });
+    return false;
+  }
+});
+</script>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, private">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+
+  <title>Admin Dashboard</title>
+
+  <link rel="stylesheet" href="/dashboard.css">
+</head>
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<a href="/admin/new-user" class="btn-add-user">Add New User</a>
+
+<div style="margin: 15px 0;">
+  <input type="text" id="searchInput" placeholder="Search by name or email">
+  <button onclick="searchTable()">Search</button>
+</div>
+
+<% if (users && users.length > 0) { %>
+<table id="user-table" class="table dt-responsive nowrap" style="width:100%">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% users.forEach(user => { %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+        <td>
+          <a href="/admin/edit-user?id=<%= user.id %>" class="action-edit">Edit</a> |
+
+          <a href="#"
+             class="action-delete"
+             onclick="confirmDelete('<%= user.id %>')">
+             Delete
+          </a>
+          |
+
+          <% if (user.isBlocked) { %>
+            <a href="#"
+               style="color: green; font-weight: bold;"
+               onclick="confirmUnblock('<%= user._id %>')">
+               Unblock
+            </a>
+          <% } else { %>
+            <a href="#"
+               style="color: red; font-weight: bold;"
+               onclick="confirmBlock('<%= user._id %>')">
+               Block
+            </a>
+          <% } %>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<% } else { %>
+<p>No users found.</p>
+<% } %>
+
+<br>
+
+<!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Dashboard JS -->
+<script src="/dashboard.js"></script>
+
+<script>
+  /* =======================
+     SEARCH + DEBOUNCE
+  ======================= */
+  function debounce(fn, delay) {
+    let timer;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+  }
+
+  function searchTable() {
+    const input = document.getElementById('searchInput').value.toLowerCase();
+    const rows = document.querySelectorAll('#user-table tbody tr');
+
+    rows.forEach(row => {
+      const name = row.cells[0].textContent.toLowerCase();
+      const email = row.cells[1].textContent.toLowerCase();
+      row.style.display =
+        name.includes(input) || email.includes(input) ? '' : 'none';
+    });
+  }
+
+  const debouncedSearch = debounce(searchTable, 400);
+  document.getElementById('searchInput')
+    .addEventListener('input', debouncedSearch);
+
+  /* =======================
+     SWEETALERT CONFIRMATIONS
+  ======================= */
+  function confirmDelete(userId) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This user will be permanently deleted!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, delete!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = `/admin/delete-user?id=${userId}`;
+      }
+    });
+  }
+
+  function confirmBlock(userId) {
+    Swal.fire({
+      title: 'Block this user?',
+      text: 'The user will not be able to login.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#3085d6',
+      confirmButtonText: 'Yes, block'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = `/admin/block-user/${userId}`;
+      }
+    });
+  }
+
+  function confirmUnblock(userId) {
+    Swal.fire({
+      title: 'Unblock this user?',
+      text: 'The user will regain access.',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#28a745',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Yes, unblock'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = `/admin/unblock-user/${userId}`;
+      }
+    });
+  }
+</script>
+
+<script src="/adminCacheControl.js"></script>
+
+</body>
+</html>

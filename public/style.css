@@ -1,0 +1,191 @@
+:root {
+  --primary: #13acaf;
+  --background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-color: #ffffff;
+  --input-bg: rgba(255, 255, 255, 0.1);
+  --input-border: rgba(255, 255, 255, 0.2);
+  --neon-glow: 0 0 8px rgba(19, 172, 175, 0.6);
+  --radius: 16px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  min-height: 100vh;
+  background: var(--background);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 420px;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px);
+  padding: 40px;
+  position: relative;
+  animation: fadeIn 0.5s ease-in;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: var(--primary);
+  text-shadow: var(--neon-glow);
+  font-size: 2rem;
+}
+
+.message {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #0f0;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  padding: 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--input-border);
+  background-color: var(--input-bg);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+}
+
+input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+input:focus {
+  box-shadow: 0 0 8px rgba(19, 172, 175, 0.6);
+}
+
+button {
+  padding: 14px;
+  background-color: var(--primary);
+  border: none;
+  color: white;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--neon-glow);
+}
+
+button:hover {
+  transform: scale(1.04);
+  background-color: #0f8e91;
+}
+
+.register-forget {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  font-size: 13px;
+}
+
+.register-forget a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.register-forget a:hover {
+  text-shadow: var(--neon-glow);
+}
+
+.circle-bg {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: var(--primary);
+  opacity: 0.07;
+  z-index: -1;
+}
+
+.circle-bg.one {
+  top: -60px;
+  left: -60px;
+}
+
+.circle-bg.two {
+  bottom: -60px;
+  right: -60px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.password-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-container input {
+  width: 100%;
+  padding-right: 45px;
+}
+
+.eye-button {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 0;
+  font-size: 18px;
+  transition: color 0.3s ease;
+  z-index: 10;
+  width: auto;
+  height: auto;
+  box-shadow: none;
+}
+
+.eye-button:hover {
+  color: var(--primary);
+  transform: none;
+  background: none;
+}
+
+.eye-button:focus {
+  outline: none;
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 30px 20px;
+  }
+}

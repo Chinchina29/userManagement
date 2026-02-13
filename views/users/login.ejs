@@ -1,0 +1,86 @@
+
+<link rel="stylesheet" href="/style.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<section class="container">
+  <div class="login-container">
+    <div class="circle circle-one"></div>
+
+    <div class="form-container">
+      
+      <h1 class="opacity">LOGIN</h1>
+<% if (typeof message !== 'undefined' && typeof messageType !== 'undefined') { %>
+<script>
+  Swal.fire({
+    icon: '<%= messageType %>',
+    title: '<%= messageType === "success" ? "Success ✓" : "Login Error ❌" %>',
+    text: <%- JSON.stringify(message) %>,
+    confirmButtonColor: '<%= messageType === "success" ? "#28a745" : "#d33" %>'
+  })
+</script>
+<% } %>
+
+
+      
+
+      <form action="/login" method="post" id="loginForm">
+        <input type="email" name="email" placeholder="EMAIL" id="email" />
+        <div class="password-container">
+          <input type="password" name="password" placeholder="PASSWORD" id="password" />
+          <button type="button" class="eye-button" onclick="togglePassword('password', this)">
+            👁️
+          </button>
+        </div>
+        <button class="opacity" type="submit">SUBMIT</button>
+      </form>
+
+      <div class="register-forget opacity">
+        <a href="/register">REGISTER</a>
+      </div>
+    </div>
+
+    <div class="circle circle-two"></div>
+  </div>
+  <div class="theme-btn-container"></div>
+</section>
+
+
+<script>
+function togglePassword(inputId, button) {
+  const input = document.getElementById(inputId);
+  if (input.type === 'password') {
+    input.type = 'text';
+    button.innerHTML = '🙈';
+  } else {
+    input.type = 'password';
+    button.innerHTML = '👁️';
+  }
+}
+
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  
+  if (!email || !password) {
+    e.preventDefault();
+    Swal.fire({
+      icon: 'error',
+      title: 'Validation Error',
+      text: 'Please fill in all fields',
+      confirmButtonColor: '#d33'
+    });
+    return false;
+  }
+  
+  if (!email.includes('@') || !email.includes('.')) {
+    e.preventDefault();
+    Swal.fire({
+      icon: 'error',
+      title: 'Invalid Email',
+      text: 'Please enter a valid email address',
+      confirmButtonColor: '#d33'
+    });
+    return false;
+  }
+});
+</script>

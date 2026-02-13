@@ -1,0 +1,96 @@
+
+body {
+  background-color: #fff;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+h1 {
+  margin-bottom: 15px;
+}
+
+
+a {
+  text-decoration: none;
+  color: #007bff;
+  margin-right: 10px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+.btn-add-user {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px 15px;
+  background-color: #29cc97;
+  color: #fff;
+  border-radius: 4px;
+}
+
+
+.btn-home {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 6px 12px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+}
+
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+  font-size: 14px;
+  text-align: left;
+}
+
+table thead tr {
+  background-color: #f8f9fa;
+}
+
+table th, table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+}
+
+td:nth-child(3) {
+  text-align: center;
+  font-weight: bold;
+}
+
+
+.action-edit {
+  color: #007bff;
+}
+
+.action-delete {
+  color: #dc3545;
+}
+
+.action-delete:hover {
+  text-decoration: underline;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr[role="row"] > th:first-child:before {
+  background-color: #29cc97;
+  top: 14px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  border: 0;
+  font-weight: bold;
+  box-shadow: none;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td:first-child:before,
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th:first-child:before {
+  background-color: #fec400;
+}

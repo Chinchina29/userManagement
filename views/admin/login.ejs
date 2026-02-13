@@ -1,0 +1,76 @@
+
+
+<link rel="stylesheet" href="/style.css">
+
+<section class="container">
+  <div class="login-container">
+    <div class="circle circle-one"></div>
+
+    <div class="form-container">
+      <h1 class="opacity" style="font-size: x-large; margin-left: 50px;">ADMIN LOGIN</h1>
+
+      <% if (typeof message !== 'undefined') { %>
+        <h4 class="opacity" style="color: red;"><%= message %></h4>
+      <% } %>
+
+      <form action="" method="post" id="adminLoginForm">
+        <input type="email" name="email" placeholder="EMAIL" id="adminEmail" />
+        <div class="password-container">
+          <input type="password" name="password" placeholder="PASSWORD" id="adminPassword" />
+          <button type="button" class="eye-button" onclick="togglePassword('adminPassword', this)">
+            👁️
+          </button>
+        </div>
+        <button class="opacity" type="submit">LOGIN</button>
+      </form>
+
+
+    </div>
+
+    <div class="circle circle-two"></div>
+  </div>
+  <div class="theme-btn-container"></div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function togglePassword(inputId, button) {
+  const input = document.getElementById(inputId);
+  if (input.type === 'password') {
+    input.type = 'text';
+    button.innerHTML = '🙈';
+  } else {
+    input.type = 'password';
+    button.innerHTML = '👁️';
+  }
+}
+
+document.getElementById('adminLoginForm').addEventListener('submit', function(e) {
+  const email = document.getElementById('adminEmail').value.trim();
+  const password = document.getElementById('adminPassword').value.trim();
+  
+  if (!email || !password) {
+    e.preventDefault();
+    Swal.fire({
+      icon: 'error',
+      title: 'Validation Error',
+      text: 'Please fill in all fields',
+      confirmButtonColor: '#d33'
+    });
+    return false;
+  }
+  
+  if (!email.includes('@') || !email.includes('.')) {
+    e.preventDefault();
+    Swal.fire({
+      icon: 'error',
+      title: 'Invalid Email',
+      text: 'Please enter a valid email address',
+      confirmButtonColor: '#d33'
+    });
+    return false;
+  }
+});
+</script>

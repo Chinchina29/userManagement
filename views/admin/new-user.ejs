@@ -1,0 +1,37 @@
+<head>
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, private">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<section class="container">
+  <div class="form-wrapper">
+    <div class="circle circle-one"></div>
+  <div class="login-container">
+
+    <div class="form-container">
+      <h1 class="opacity">Add New User</h1>
+
+      <% if (typeof message !== 'undefined') { %>
+        <h4 class="opacity" style="color: rgb(243, 12, 12);"><%= message %></h4>
+      <% } %>
+
+      <form action="/admin/new-user" method="post">
+        <input type="text" name="name" placeholder="Enter Name" required />
+        <input type="email" name="email" placeholder="Enter Email" required />
+        <input type="password" name="password" placeholder="Enter Password" required />
+        <button class="opacity" type="submit">Add User</button>
+      </form>
+
+      <div class="back-link opacity">
+        <a href="/admin/dashboard">Back to Dashboard</a>
+      </div>
+    </div>
+    </div>
+
+    <div class="circle circle-two"></div>
+  </div>
+</section>
+<script src="/javascript.js"></script>
+<script src="/adminCacheControl.js"></script>
